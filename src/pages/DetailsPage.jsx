@@ -165,10 +165,12 @@ export default function DetailsPage() {
                         <div className="camera-active">
                             <video
                                 ref={videoRef}
+                                data-camera-video
                                 autoPlay
                                 playsInline
                                 muted
                                 className="camera-video"
+                                onLoadedMetadata={e => e.target.play()}
                             />
                             <div className="camera-controls">
                                 <button className="btn btn-primary" onClick={handleCapture}>
