@@ -1,6 +1,7 @@
 // pages/DetailsPage.jsx — Employee detail view + camera capture.
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { ArrowLeft, MapPin, DollarSign, Mail, Phone, Building2, Hash, Camera, Circle, X, UserX } from 'lucide-react';
 import { useEmployeeStore } from '../store/useEmployeeStore';
 import { useCamera } from '../hooks/useCamera';
 import { useEmployees } from '../hooks/useEmployees';
@@ -41,9 +42,9 @@ export default function DetailsPage() {
         return (
             <div className="page-content">
                 <div className="error-state">
-                    <span className="error-icon">👤</span>
+                    <UserX size={48} strokeWidth={2} color="#475569" />
                     <h2>Employee not found</h2>
-                    <button className="btn btn-primary" onClick={() => navigate('/list')}>← Back to List</button>
+                    <button className="btn btn-primary" onClick={() => navigate('/list')}>Back to List</button>
                 </div>
             </div>
         );
@@ -82,7 +83,8 @@ export default function DetailsPage() {
     return (
         <div className="page-content">
             <button className="btn btn-ghost back-btn" onClick={() => navigate(-1)}>
-                ← Back
+                <ArrowLeft size={16} strokeWidth={2} />
+                Back
             </button>
 
             <div className="details-layout">
@@ -104,33 +106,51 @@ export default function DetailsPage() {
 
                     <div className="details-info-grid">
                         <div className="info-item">
-                            <span className="info-label">📍 City</span>
+                            <span className="info-label">
+                                <MapPin size={12} strokeWidth={2} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />
+                                City
+                            </span>
                             <span className="info-value">{employee.city}</span>
                         </div>
                         <div className="info-item">
-                            <span className="info-label">💰 Salary</span>
+                            <span className="info-label">
+                                <DollarSign size={12} strokeWidth={2} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />
+                                Salary
+                            </span>
                             <span className="info-value salary-highlight">{employee.getDisplaySalary()}</span>
                         </div>
                         {employee.email && (
                             <div className="info-item">
-                                <span className="info-label">✉️ Email</span>
+                                <span className="info-label">
+                                    <Mail size={12} strokeWidth={2} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />
+                                    Email
+                                </span>
                                 <span className="info-value">{employee.email}</span>
                             </div>
                         )}
                         {employee.phone && (
                             <div className="info-item">
-                                <span className="info-label">📞 Phone</span>
+                                <span className="info-label">
+                                    <Phone size={12} strokeWidth={2} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />
+                                    Phone
+                                </span>
                                 <span className="info-value">{employee.phone}</span>
                             </div>
                         )}
                         {employee.department && (
                             <div className="info-item">
-                                <span className="info-label">🏢 Dept</span>
+                                <span className="info-label">
+                                    <Building2 size={12} strokeWidth={2} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />
+                                    Dept
+                                </span>
                                 <span className="info-value">{employee.department}</span>
                             </div>
                         )}
                         <div className="info-item">
-                            <span className="info-label">🆔 ID</span>
+                            <span className="info-label">
+                                <Hash size={12} strokeWidth={2} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />
+                                ID
+                            </span>
                             <span className="info-value">#{employee.id}</span>
                         </div>
                     </div>
@@ -138,34 +158,39 @@ export default function DetailsPage() {
 
                 {/* Camera Section */}
                 <div className="camera-card">
-                    <h2 className="camera-title">📸 Photo Capture</h2>
+                    <h2 className="camera-title">Photo Capture</h2>
                     <p className="camera-subtitle">Take a quick photo of {employee.name.split(' ')[0]}</p>
 
                     {cameraActive ? (
                         <div className="camera-active">
                             <video
                                 ref={videoRef}
+                                data-camera-video
                                 autoPlay
                                 playsInline
                                 muted
                                 className="camera-video"
+                                onLoadedMetadata={e => e.target.play()}
                             />
                             <div className="camera-controls">
                                 <button className="btn btn-primary" onClick={handleCapture}>
-                                    📸 Capture
+                                    <Circle size={15} strokeWidth={2} />
+                                    Capture
                                 </button>
                                 <button className="btn btn-ghost" onClick={handleStopCamera}>
-                                    ✕ Cancel
+                                    <X size={15} strokeWidth={2} />
+                                    Cancel
                                 </button>
                             </div>
                         </div>
                     ) : (
                         <div className="camera-idle">
                             <div className="camera-placeholder">
-                                <span>📷</span>
+                                <Camera size={40} strokeWidth={1.5} color="#475569" />
                             </div>
                             {cameraError && <p className="error-message camera-err">{cameraError}</p>}
                             <button className="btn btn-primary btn-lg" onClick={handleOpenCamera}>
+                                <Camera size={16} strokeWidth={2} />
                                 Open Camera
                             </button>
                         </div>

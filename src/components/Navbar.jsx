@@ -1,10 +1,11 @@
-// components/Navbar.jsx — Dark sidebar navigation with icons.
+// components/Navbar.jsx — Dark sidebar navigation with Lucide icons.
 import { NavLink, useNavigate } from 'react-router-dom';
+import { LayoutList, BarChart2, Map, LogOut } from 'lucide-react';
 
 const NAV_ITEMS = [
-    { to: '/list', label: 'Employees', icon: '👥' },
-    { to: '/chart', label: 'Chart', icon: '📊' },
-    { to: '/map', label: 'Map', icon: '🗺️' },
+    { to: '/list', label: 'Employees', Icon: LayoutList },
+    { to: '/chart', label: 'Chart', Icon: BarChart2 },
+    { to: '/map', label: 'Map', Icon: Map },
 ];
 
 export default function Navbar() {
@@ -18,18 +19,20 @@ export default function Navbar() {
     return (
         <nav className="sidebar">
             <div className="sidebar-brand">
-                <span className="brand-icon">💼</span>
-                <span className="brand-name">EmpDir</span>
+                <div className="brand-wordmark">
+                    <span className="brand-name">Jotish</span>
+                    <span className="brand-sub">Employee System</span>
+                </div>
             </div>
 
             <ul className="sidebar-nav">
-                {NAV_ITEMS.map(({ to, label, icon }) => (
+                {NAV_ITEMS.map(({ to, label, Icon }) => (
                     <li key={to}>
                         <NavLink
                             to={to}
                             className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
                         >
-                            <span className="nav-icon">{icon}</span>
+                            <Icon size={18} strokeWidth={2} className="nav-icon" />
                             <span className="nav-label">{label}</span>
                         </NavLink>
                     </li>
@@ -37,7 +40,7 @@ export default function Navbar() {
             </ul>
 
             <button className="logout-btn" onClick={handleLogout}>
-                <span>🚪</span>
+                <LogOut size={17} strokeWidth={2} />
                 <span>Logout</span>
             </button>
         </nav>

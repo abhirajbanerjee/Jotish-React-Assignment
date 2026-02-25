@@ -17,7 +17,7 @@ export default function LoginPage() {
     const onSubmit = ({ username, password }) => {
         if (username === VALID_USER.username && password === VALID_USER.password) {
             localStorage.setItem('auth', 'true');
-            toast.success('Welcome back! 👋', { icon: '✅' });
+            toast.success('Welcome back!');
             navigate('/list');
         } else {
             toast.error('Invalid credentials. Try testuser / Test123');
@@ -27,11 +27,11 @@ export default function LoginPage() {
     return (
         <div className="login-page">
             <div className="login-card">
-                <div className="login-logo">
-                    <span>💼</span>
+                <div className="login-brand">
+                    <h2 className="login-brand-name">Jotish Employee System</h2>
                 </div>
-                <h1 className="login-title">Employee Directory</h1>
-                <p className="login-subtitle">Sign in to access your workspace</p>
+                <h1 className="login-title">Sign In</h1>
+                <p className="login-subtitle">Access your workspace</p>
 
                 <form className="login-form" onSubmit={handleSubmit(onSubmit)} noValidate>
                     <div className="form-group">
@@ -62,7 +62,7 @@ export default function LoginPage() {
                     </div>
 
                     <button type="submit" className="btn btn-primary btn-full" disabled={isSubmitting}>
-                        {isSubmitting ? 'Signing in…' : 'Sign In →'}
+                        {isSubmitting ? 'Signing in…' : 'Sign In'}
                     </button>
                 </form>
 

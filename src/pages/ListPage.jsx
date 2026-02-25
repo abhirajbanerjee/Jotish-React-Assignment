@@ -1,5 +1,6 @@
 // pages/ListPage.jsx — Main employee list with search + skeleton + staggered card entrance.
 import { useState } from 'react';
+import { AlertTriangle, SearchX } from 'lucide-react';
 import { useEmployees } from '../hooks/useEmployees';
 import { useEmployeeStore } from '../store/useEmployeeStore';
 import EmployeeCard from '../components/EmployeeCard';
@@ -21,7 +22,7 @@ export default function ListPage() {
         return (
             <div className="page-content">
                 <div className="error-state">
-                    <span className="error-icon">⚠️</span>
+                    <AlertTriangle size={48} strokeWidth={2} color="#f59e0b" />
                     <h2>Failed to load employees</h2>
                     <p>{error}</p>
                 </div>
@@ -47,7 +48,7 @@ export default function ListPage() {
                     : filtered.length === 0
                         ? (
                             <div className="empty-state">
-                                <span className="empty-icon">🔍</span>
+                                <SearchX size={48} strokeWidth={2} color="#475569" />
                                 <p>No employees match &quot;{query}&quot;</p>
                                 <button className="btn btn-ghost" onClick={() => setQuery('')}>Clear search</button>
                             </div>
