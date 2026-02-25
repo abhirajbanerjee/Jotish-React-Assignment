@@ -1,5 +1,6 @@
 // components/EmployeeCard.jsx — Reusable card UI for ListPage.
 import { Link } from 'react-router-dom';
+import { MapPin } from 'lucide-react';
 
 const STATUS_COLORS = {
     'Active': { bg: '#dcfce7', color: '#16a34a' },
@@ -33,7 +34,10 @@ export default function EmployeeCard({ employee, index }) {
             <div className="card-body">
                 <h3 className="card-name">{employee.name}</h3>
                 <p className="card-role">{employee.role}</p>
-                <p className="card-city">📍 {employee.city}</p>
+                <p className="card-city">
+                    <MapPin size={13} strokeWidth={2} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />
+                    {employee.city}
+                </p>
                 <p className="card-salary">{employee.getDisplaySalary()}</p>
             </div>
 
