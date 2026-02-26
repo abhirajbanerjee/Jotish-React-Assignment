@@ -1,4 +1,3 @@
-// components/SearchBar.jsx — Controlled input. Emits onChange to parent.
 export default function SearchBar({ value, onChange, placeholder = 'Search employees...' }) {
     return (
         <div className="search-bar-wrapper">

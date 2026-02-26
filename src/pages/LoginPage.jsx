@@ -1,4 +1,3 @@
-// pages/LoginPage.jsx — React Hook Form + hardcoded auth. Redirects on success.
 import { useForm } from 'react-hook-form';
 import { useNavigate, Navigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -9,7 +8,6 @@ export default function LoginPage() {
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
     const navigate = useNavigate();
 
-    // If already logged in, skip to list
     if (localStorage.getItem('auth') === 'true') {
         return <Navigate to="/list" replace />;
     }

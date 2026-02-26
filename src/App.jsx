@@ -1,4 +1,3 @@
-// App.jsx — Router setup. Wraps authenticated pages in ProtectedRoute + Navbar layout.
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
@@ -81,7 +80,6 @@ export default function App() {
           }
         />
 
-        {/* Redirect root to list (ProtectedRoute will send to login if not authed) */}
         <Route path="/" element={<Navigate to="/list" replace />} />
         <Route path="*" element={<Navigate to="/list" replace />} />
       </Routes>

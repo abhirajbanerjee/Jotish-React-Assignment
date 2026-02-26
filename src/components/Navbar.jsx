@@ -1,4 +1,3 @@
-// components/Navbar.jsx — Dark sidebar navigation with Lucide icons.
 import { NavLink, useNavigate } from 'react-router-dom';
 import { LayoutList, BarChart2, Map, LogOut } from 'lucide-react';
 

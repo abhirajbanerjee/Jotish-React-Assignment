@@ -1,4 +1,3 @@
-// pages/PhotoResultPage.jsx — Displays captured photo from DetailsPage.
 import { useLocation, useNavigate } from 'react-router-dom';
 import { MapPin, DollarSign, Tag, RefreshCw, ArrowLeft, CameraOff } from 'lucide-react';
 
@@ -7,7 +6,6 @@ export default function PhotoResultPage() {
     const navigate = useNavigate();
     const { photoUrl, employee } = location.state || {};
 
-    // Safe salary display — don't crash if getDisplaySalary isn't available
     const salary = typeof employee?.getDisplaySalary === 'function'
         ? employee.getDisplaySalary()
         : employee?.salary
@@ -35,14 +33,12 @@ export default function PhotoResultPage() {
             <p className="page-subtitle">{employee.name} · {employee.role}</p>
 
             <div className="photo-layout">
-                {/* Photo Frame */}
                 <div className="photo-frame">
                     <img
                         src={photoUrl}
                         alt={`Photo of ${employee.name}`}
                         className="captured-photo"
                     />
-                    {/* Overlay badge at bottom of photo */}
                     <div className="photo-badge">
                         <img className="photo-avatar-sm" src={employee.avatar} alt="" />
                         <div>
@@ -52,7 +48,6 @@ export default function PhotoResultPage() {
                     </div>
                 </div>
 
-                {/* Info panel */}
                 <div className="photo-info-panel">
                     <h2 className="photo-emp-title">{employee.name}</h2>
 

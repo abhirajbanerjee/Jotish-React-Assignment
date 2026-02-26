@@ -1,4 +1,3 @@
-// pages/ListPage.jsx — Main employee list with search + skeleton + staggered card entrance.
 import { useState } from 'react';
 import { AlertTriangle, SearchX } from 'lucide-react';
 import { useEmployees } from '../hooks/useEmployees';

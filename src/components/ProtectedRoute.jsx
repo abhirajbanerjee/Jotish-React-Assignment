@@ -1,4 +1,3 @@
-// components/ProtectedRoute.jsx — HOC: Decorator pattern. Wraps any route with auth-checking.
 import { Navigate } from 'react-router-dom';
 
 export default function ProtectedRoute({ children }) {

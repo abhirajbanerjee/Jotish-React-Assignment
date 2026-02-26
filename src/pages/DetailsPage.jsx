@@ -1,4 +1,3 @@
-// pages/DetailsPage.jsx — Employee detail view + camera capture.
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ArrowLeft, MapPin, DollarSign, Mail, Phone, Building2, Hash, Camera, Circle, X, UserX } from 'lucide-react';
@@ -24,7 +23,6 @@ export default function DetailsPage() {
         }
     }, [status, id, service]);
 
-    // Stop camera when leaving
     useEffect(() => () => stopCamera(), [stopCamera]);
 
     if (isLoading) {
@@ -88,7 +86,6 @@ export default function DetailsPage() {
             </button>
 
             <div className="details-layout">
-                {/* Employee Profile Card */}
                 <div className="details-card">
                     <img
                         className="details-avatar"
@@ -156,7 +153,6 @@ export default function DetailsPage() {
                     </div>
                 </div>
 
-                {/* Camera Section */}
                 <div className="camera-card">
                     <h2 className="camera-title">Photo Capture</h2>
                     <p className="camera-subtitle">Take a quick photo of {employee.name.split(' ')[0]}</p>

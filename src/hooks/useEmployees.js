@@ -1,4 +1,3 @@
-// hooks/useEmployees.js — Custom hook: triggers fetch, exposes loading/error state.
 import { useEffect } from 'react';
 import { useEmployeeStore } from '../store/useEmployeeStore';
 

@@ -1,6 +1,3 @@
-// pages/MapPage.jsx — Interactive world map with one marker per city.
-// Multiple employees at the same city are grouped into a single marker.
-// Clicking a marker opens a scrollable list of all employees there.
 import { useMemo } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Link } from 'react-router-dom';
@@ -9,7 +6,6 @@ import L from 'leaflet';
 import { useEmployees } from '../hooks/useEmployees';
 import { useEmployeeStore } from '../store/useEmployeeStore';
 
-// Fix leaflet's default icon path issue in Vite
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
     iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
@@ -17,7 +13,6 @@ L.Icon.Default.mergeOptions({
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 });
 
-// Create a marker icon with a count badge
 function createGroupIcon(count, dominantStatus) {
     const colors = { Active: '#16a34a', 'On Leave': '#ca8a04', Remote: '#2563eb' };
     const fill = colors[dominantStatus] || '#6366f1';
@@ -61,7 +56,6 @@ export default function MapPage() {
     const { isLoading } = useEmployees();
     const { employees } = useEmployeeStore();
 
-    // Group employees by city → Map<city, { employees[], lat, lng }>
     const cityGroups = useMemo(() => {
         const groups = new Map();
         employees
@@ -114,7 +108,6 @@ export default function MapPage() {
                     />
 
                     {[...cityGroups.entries()].map(([city, group]) => {
-                        // Dominant status = most common status in this city group
                         const statusCount = group.employees.reduce((acc, e) => {
                             acc[e.status] = (acc[e.status] || 0) + 1;
                             return acc;
@@ -128,7 +121,6 @@ export default function MapPage() {
                                 icon={createGroupIcon(group.employees.length, dominantStatus)}
                             >
                                 <Popup minWidth={260} maxWidth={320} className="city-popup">
-                                    {/* Popup header */}
                                     <div className="popup-header">
                                         <MapPin size={18} strokeWidth={2} style={{ color: '#6366f1', flexShrink: 0 }} />
                                         <div>
@@ -139,7 +131,6 @@ export default function MapPage() {
                                         </div>
                                     </div>
 
-                                    {/* Scrollable employee list */}
                                     <div className="popup-employee-list">
                                         {group.employees.map(emp => (
                                             <div key={emp.id} className="popup-employee-row">

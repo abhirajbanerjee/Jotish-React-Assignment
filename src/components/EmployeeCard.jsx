@@ -1,4 +1,3 @@
-// components/EmployeeCard.jsx — Reusable card UI for ListPage.
 import { Link } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
 

@@ -1,4 +1,3 @@
-// components/SkeletonCard.jsx — Placeholder card shown while loading. Pure UI, no data.
 export default function SkeletonCard() {
     return (
         <div className="employee-card skeleton-card">

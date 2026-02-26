@@ -1,8 +1,4 @@
-// models/Employee.js — ES6 class that maps raw API JSON → clean typed object.
-// OOP Principles: Encapsulation (hides raw field names), Abstraction (computed methods).
-
-// City coordinates — covers all cities in the datatables.net sample dataset
-// plus Indian cities for fallback. Used before hitting the Nominatim geocoding API.
+// Static coordinate lookup for mapping employees to cities
 const CITY_COORDS = {
     // Global (datatables sample)
     'Edinburgh': [55.9533, -3.1883],
@@ -86,16 +82,14 @@ export class Employee {
         this.phone = isArray ? '' : (raw.phone || '');
         this.department = isArray ? '' : (raw.department || '');
 
-        // Salary: API sends "$320,800" — strip currency symbols/commas before parsing
+        // Salary: strip currency symbols/commas before parsing
         const rawSalary = isArray ? raw[5] : (raw.salary || 0);
         this.salary = typeof rawSalary === 'string'
             ? parseFloat(rawSalary.replace(/[^0-9.]/g, '')) || 0
             : parseFloat(rawSalary) || 0;
 
-        // Avatar from DiceBear using name as seed
         this.avatar = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(this.name)}&backgroundColor=6366f1,8b5cf6,06b6d4,10b981&scale=90`;
 
-        // Lat/Lng: API doesn't provide coordinates, fall back to city lookup
         const cityKey = Object.keys(CITY_COORDS).find(
             k => k.toLowerCase() === this.city.toLowerCase()
         );
@@ -106,12 +100,10 @@ export class Employee {
         this.lat = fallback[0];
         this.lng = fallback[1];
 
-        // Stable status derived from id
         const idNum = parseInt(this.id, 10) || this.id.charCodeAt(0) || 0;
         this.status = STATUS_OPTIONS[Math.abs(idNum) % 3];
     }
 
-    // Abstraction: hides Intl.NumberFormat complexity from all callers.
     getDisplaySalary() {
         return new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -120,7 +112,6 @@ export class Employee {
         }).format(this.salary);
     }
 
-    // Abstraction: map page doesn't need to know raw API shape.
     toMapMarker() {
         return {
             lat: this.lat,

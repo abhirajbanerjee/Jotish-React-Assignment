@@ -1,4 +1,3 @@
-// pages/ChartPage.jsx — Salary analytics: bar chart, city donut, status donut.
 import { useEmployees } from '../hooks/useEmployees';
 import { useEmployeeStore } from '../store/useEmployeeStore';
 import { formatCurrency } from '../utils/formatCurrency';
@@ -8,12 +7,10 @@ import {
     PieChart, Pie, Legend,
 } from 'recharts';
 
-// ── Colour palettes ──────────────────────────────────────────────────────────
 const BAR_COLORS = ['#6366f1', '#8b5cf6', '#a78bfa', '#818cf8', '#4f46e5', '#7c3aed', '#6d28d9', '#5b21b6', '#4c1d95', '#3730a3'];
 const CITY_COLORS = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#ec4899', '#94a3b8'];
 const STATUS_COLORS = { Active: '#10b981', 'On Leave': '#f59e0b', Remote: '#6366f1' };
 
-// ── Bar chart tooltip ────────────────────────────────────────────────────────
 function BarTooltip({ active, payload }) {
     if (active && payload && payload.length) {
         const emp = payload[0].payload;
@@ -28,7 +25,6 @@ function BarTooltip({ active, payload }) {
     return null;
 }
 
-// ── Donut chart tooltip ──────────────────────────────────────────────────────
 function DonutTooltip({ active, payload }) {
     if (active && payload && payload.length) {
         const { name, value, payload: inner } = payload[0];
@@ -43,7 +39,6 @@ function DonutTooltip({ active, payload }) {
     return null;
 }
 
-// ── Custom Legend for donuts ─────────────────────────────────────────────────
 function DonutLegend({ payload }) {
     return (
         <ul className="donut-legend">
@@ -57,7 +52,6 @@ function DonutLegend({ payload }) {
     );
 }
 
-// ── Helper: group employees by city, top 5 + Others ─────────────────────────
 function getCityData(employees) {
     const map = {};
     employees.forEach(e => { map[e.city] = (map[e.city] || 0) + 1; });
@@ -68,14 +62,12 @@ function getCityData(employees) {
     return top5;
 }
 
-// ── Helper: group by status ──────────────────────────────────────────────────
 function getStatusData(employees) {
     const map = {};
     employees.forEach(e => { map[e.status] = (map[e.status] || 0) + 1; });
     return Object.entries(map).map(([name, value]) => ({ name, value }));
 }
 
-// ── Main component ───────────────────────────────────────────────────────────
 export default function ChartPage() {
     const { isLoading } = useEmployees();
     const { service, status } = useEmployeeStore();
@@ -107,7 +99,6 @@ export default function ChartPage() {
 
     return (
         <div className="page-content">
-            {/* ── Page header ── */}
             <div className="page-header">
                 <div>
                     <h1 className="page-title">Salary Analytics</h1>
@@ -119,7 +110,6 @@ export default function ChartPage() {
                 </div>
             </div>
 
-            {/* ── Bar chart — top 10 salaries ── */}
             <div className="chart-section-label">Top 10 Highest-Paid Employees</div>
             <div className="chart-card">
                 <ResponsiveContainer width="100%" height={420}>
@@ -156,7 +146,6 @@ export default function ChartPage() {
                 </ResponsiveContainer>
             </div>
 
-            {/* ── Podium ── */}
             <div className="chart-summary-row">
                 {top10.slice(0, 3).map((emp, i) => (
                     <div key={emp.id} className={`podium-card podium-${i + 1}`}>
@@ -168,10 +157,8 @@ export default function ChartPage() {
                 ))}
             </div>
 
-            {/* ── Second row: City donut + Status donut ── */}
             <div className="chart-donut-row">
 
-                {/* City distribution donut */}
                 <div className="chart-donut-panel">
                     <div className="chart-section-label">Employees by City</div>
                     <div className="chart-card chart-card--donut">
@@ -192,7 +179,6 @@ export default function ChartPage() {
                                         <Cell key={`city-${i}`} fill={CITY_COLORS[i % CITY_COLORS.length]} />
                                     ))}
                                 </Pie>
-                                {/* Center label lives inside SVG — always beneath the tooltip DOM div */}
                                 <text x="50%" y="44%" textAnchor="middle" dominantBaseline="middle"
                                     style={{ fontSize: 28, fontWeight: 800, fill: 'var(--text-primary)', fontFamily: 'inherit' }}>
                                     {allEmps.length}
@@ -208,7 +194,6 @@ export default function ChartPage() {
                     </div>
                 </div>
 
-                {/* Status donut */}
                 <div className="chart-donut-panel">
                     <div className="chart-section-label">Workforce Status</div>
                     <div className="chart-card chart-card--donut">
@@ -236,7 +221,6 @@ export default function ChartPage() {
                                 <Legend content={<DonutLegend />} />
                             </PieChart>
                         </ResponsiveContainer>
-                        {/* Status stat pills */}
                         <div className="status-pills">
                             {statusData.map(({ name, value }) => (
                                 <span
